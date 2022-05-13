@@ -3,49 +3,59 @@ import {View, StyleSheet, TextInput, Button, Alert} from "react-native";
 
 export const SignUp = ({onSubmit}) => {
     const[value, setValue] = useState('')
-    // const[pasValue, setPasValue] = useState('')
+    const[eValue, setEValue] = useState('')
     const press = () => {
-        if(value.trim()){
-            onSubmit(value)
+        if(value.trim() && eValue.trim()){
+            onSubmit(eValue, value)
+            setEValue('')
             setValue('')
-            // onSubmit(pasValue)
-            // setPasValue('')
+
+        }else if(!value.trim()){
+            Alert.alert('Enter email')
         }else{
-            Alert.alert('Enter login or password')
+            Alert.alert('Enter password')
         }
     }
     return (
         <View style={styles.block}>
-            <TextInput
-                style={styles.input}
-                onChangeText={setValue}
-                value={value}
-                placeholder='Enter your email'
-            />
-            {/*<TextInput*/}
-            {/*    style={styles.input}*/}
-            {/*    onChangeText={setPasValue}*/}
-            {/*    value={pasValue}*/}
-            {/*    placeholder='Enter your password'*/}
-            {/*/>*/}
-            <Button color='black' title="SignUp" onPress={press}/>
+            <View style={styles.inputBlock}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setValue}
+                    value={value}
+                    placeholder='Enter your mail'
+                />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setEValue}
+                    value={eValue}
+                    placeholder='Enter your password'
+                />
+            </View>
+            <Button color='black' title="Enter" onPress={press}/>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    inputBlock: {
+        flexDirection: "column"
+    },
     block: {
-        marginTop: 0,
+        marginTop: 5,
+        marginHorizontal:10,
+        marginVertical:17,
         paddingBottom: 20,
         height: 70,
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: "flex-start",
+        justifyContent:"space-between"
     },
     input: {
         padding:5,
         height: 34,
-        width: '70%',
+        marginTop: -1,
+        width: '203%',
         borderStyle: 'solid',
         borderWidth: 1,
         backgroundColor: 'white'
